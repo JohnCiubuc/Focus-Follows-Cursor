@@ -33,7 +33,7 @@ void MainWindow::checkMousePos()
         {
             db "new window";
             _handle = handle;
-
+if((GetKeyState(VK_LBUTTON) & 0x8000) != 0) return;
 
 
             BYTE keyState[256] = {0};
