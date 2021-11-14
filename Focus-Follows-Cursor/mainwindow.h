@@ -5,6 +5,8 @@
 #include <qt_windows.h>
 #include <QTimer>
 #include <QDebug>
+#include <QSystemTrayIcon>
+#include <QMenu>
 
 #define db qDebug() <<
 
@@ -22,12 +24,15 @@ public:
 
 private slots:
     void checkMousePos();
-    HWND getRealParent(HWND hWnd);;
+    HWND getRealParent(HWND hWnd);
+    void trayTriggered(QAction *action);
 
 private:
     Ui::MainWindow *ui;
     QTimer * _posTimer;
     POINT _pCache;
     HWND _handle;
+    QSystemTrayIcon * _trayIcon;
+    QMenu *_trayMenu;
 };
 #endif // MAINWINDOW_H

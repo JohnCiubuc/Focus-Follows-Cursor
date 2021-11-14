@@ -9,7 +9,15 @@ MainWindow::MainWindow(QWidget *parent)
 	_posTimer = new QTimer(this);
 	connect(_posTimer, &QTimer::timeout, this, &MainWindow::checkMousePos);
 	_posTimer->start(100);
+    _trayIcon = new QSystemTrayIcon(this);
+    _trayMenu = new QMenu(this);
+_trayMenu->addAction("quit");
+connect(_trayMenu, &QMenu::triggered, this, &MainWindow::trayTriggered);
+_trayIcon->setContextMenu(_trayMenu);
+_trayIcon->setIcon(QIcon("://resources/img_231546.png"));
+_trayIcon->show();
 }
+
 
 MainWindow::~MainWindow()
 {
@@ -72,6 +80,13 @@ HWND MainWindow::getRealParent(HWND hWnd)
 	if (!hParent || hParent == GetDesktopWindow())
 		return NULL;
 
-	return hParent;
+    return hParent;
+}
+
+void MainWindow::trayTriggered(QAction *action)
+{
+        if(action->text() == "quit")
+            exit(0);
+
 }
 
